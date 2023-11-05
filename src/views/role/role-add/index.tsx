@@ -12,7 +12,7 @@ const AddRole: FC<IProps> = memo(() => {
   return (
     <>
       <div className="flex">
-        <Button className="h-14" variant="contained" onClick={() => setOpen(true)}>
+        <Button className="h-14" color="success" variant="contained" onClick={() => setOpen(true)}>
           역할 추가
         </Button>
       </div>

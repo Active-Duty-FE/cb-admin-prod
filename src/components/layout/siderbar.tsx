@@ -4,6 +4,7 @@ import { useDevice } from '@/hooks/user-interface'
 import { updateSidebarToggled } from '@/store/modules/user-interface'
 import { MenuItemType } from '@/types'
 import { getUserInterface, setUserInterface } from '@/utils/localstorage'
+import { useTheme } from '@mui/material'
 import { FC, Fragment, useEffect, useState } from 'react'
 import { Menu, MenuItem, Sidebar, SubMenu } from 'react-pro-sidebar'
 import { NavLink } from 'react-router-dom'
@@ -47,17 +48,18 @@ const Siderbar: FC<IProps> = (props) => {
     setCollapsed && setCollapsed(!collapsed)
     setUserInterface('sidebarCollapsed', collapsed ? '0' : '1')
   }
+  const theme = useTheme()
   return (
     <div style={{ display: 'flex', height: 'calc(100vh - 64px)' }}>
       <Sidebar
         collapsed={collapsed}
-        backgroundColor="#313743"
+        backgroundColor={theme.palette.primary.main}
         breakPoint="md"
         toggled={sidebarToggled}
         transitionDuration={500}
         onBackdropClick={() => dispatch(updateSidebarToggled(false))}
       >
-        <div className="h-4 bg-[#4A5064] text-center text-[#313743] py-2 cursor-pointer" onClick={handleCollapseButton}>
+        <div className="h-4 bg-[#939393] text-center text-[#fff] py-2 cursor-pointer" onClick={handleCollapseButton}>
           | | |
         </div>
         <Menu
@@ -72,7 +74,7 @@ const Siderbar: FC<IProps> = (props) => {
               }
             },
             '.active': {
-              color: '#409fff!important',
+              color: '#638BB3!important',
               backgroundColor: '#272c36'
             }
           }}

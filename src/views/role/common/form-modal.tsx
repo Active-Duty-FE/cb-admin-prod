@@ -76,7 +76,7 @@ const FormModal: FC<IProps> = memo(({ open, setOpen, type, defaultValue }) => {
                     placeholder="PL ENTER ROLE-DESCRIPTION"
                   ></AInput>
                   <div className="flex items-center mt-3 ">
-                    <Button className="flex-1" variant="contained" onClick={() => formkik.submitForm()}>
+                    <Button color="success" className="flex-1" variant="contained" onClick={() => formkik.submitForm()}>
                       확인
                     </Button>
                     <Tooltip className="ml-2" title="reset" placement="top" arrow>

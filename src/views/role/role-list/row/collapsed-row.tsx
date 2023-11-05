@@ -47,7 +47,7 @@ const CollapsedRow: FC<IProps> = memo(({ roleChild, roleId }) => {
   return (
     <>
       <Chip
-        color={roleChild.pid === '0' ? 'primary' : roleChild.pid === '1' ? 'secondary' : 'default'}
+        color={roleChild.pid === '0' ? 'info' : roleChild.pid === '1' ? 'success' : 'default'}
         variant="outlined"
         className="m-3 min-w-[120px] hover:bg-stone-100"
         label={roleChild.authName}

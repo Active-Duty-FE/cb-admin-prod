@@ -15,7 +15,7 @@ const Role: FC<IProps> = memo(() => {
     <>
       <div className="flex justify-between md:justify-start">
         <AddRole />
-        <Button className="ml-4" variant="outlined" onClick={() => setExpanded(!expanded)}>
+        <Button className="ml-4" color="secondary" variant="outlined" onClick={() => setExpanded(!expanded)}>
           모두 접기
           <Refresh />
         </Button>

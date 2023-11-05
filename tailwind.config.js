@@ -12,7 +12,8 @@ module.exports = {
         500: '550px'
       },
       colors: {
-        primary: '#409fff'
+        primary: '#1C2833',
+        secondary: '#3E3E3E'
       }
     }
   },

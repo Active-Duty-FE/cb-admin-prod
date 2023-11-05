@@ -42,7 +42,7 @@ const SearchUser: FC<IProps> = memo(({ searchFn, setKeyword, setIsKeywordFocused
             type="text"
             placeholder="ID를 입력하세요."
           />
-          <Button type="submit" ref={searchButtonRef} className="ml-4 h-14" variant="contained">
+          <Button type="submit" ref={searchButtonRef} color="success" className="ml-4 h-14" variant="contained">
             검색
           </Button>
         </Form>

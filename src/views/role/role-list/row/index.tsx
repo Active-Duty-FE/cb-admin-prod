@@ -1,4 +1,15 @@
-import { Box, Button, Collapse, Dialog, DialogActions, DialogTitle, Portal, TableCell, TableRow } from '@mui/material'
+import {
+  Box,
+  Button,
+  Collapse,
+  Dialog,
+  DialogActions,
+  DialogTitle,
+  IconButton,
+  Portal,
+  TableCell,
+  TableRow
+} from '@mui/material'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
 import BuildCircleIcon from '@mui/icons-material/BuildCircle'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
@@ -111,15 +122,15 @@ const Row: FC<IProps> = memo((props) => {
           {row.roleDesc}
         </TableCell>
         <TableCell align="center">
-          <Button onClick={(e) => editRoleHandler(e)}>
-            <BorderColorIcon />
-          </Button>
-          <Button onClick={(e) => deleteRoleHandler(e, row.id)}>
+          <IconButton onClick={(e) => editRoleHandler(e)}>
+            <BorderColorIcon color="success" />
+          </IconButton>
+          <IconButton onClick={(e) => distributeRoleHandler(e, row.id)}>
+            <BuildCircleIcon color="success" />
+          </IconButton>
+          <IconButton onClick={(e) => deleteRoleHandler(e, row.id)}>
             <DeleteForeverIcon />
-          </Button>
-          <Button onClick={(e) => distributeRoleHandler(e, row.id)}>
-            <BuildCircleIcon />
-          </Button>
+          </IconButton>
         </TableCell>
       </TableRow>
       <TableRow>

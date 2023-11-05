@@ -16,15 +16,21 @@ const theme = createTheme({
   palette: {
     primary: {
       light: '#757ce8',
-      main: '#409fff',
+      main: '#1C2833',
       dark: '#002884',
       contrastText: '#fff'
     },
     secondary: {
       light: '#ff7961',
-      main: '#f44336',
+      main: '#3E3E3E',
       dark: '#ba000d',
       contrastText: '#000'
+    },
+    success: {
+      light: '#ba000d',
+      main: '#638BB3',
+      dark: '#ba000d',
+      contrastText: '#fff'
     }
   },
   components: {
@@ -46,6 +52,24 @@ const theme = createTheme({
     MuiModal: {
       defaultProps: {
         container: rootElement
+      }
+    },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          '&:hover': {
+            backgroundColor: '#d3d3d3'
+          }
+        }
+      }
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          '&:hover': {
+            backgroundColor: '#527AC2'
+          }
+        }
       }
     }
   }

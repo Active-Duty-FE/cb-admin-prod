@@ -42,9 +42,9 @@ function Login() {
   }
 
   return (
-    <div className="bg-blue-900 w-screen h-screen flex justify-center items-center ">
+    <div className="bg-primary w-screen h-screen flex justify-center items-center ">
       <Paper elevation={10} className="p-4 min-w-[300px]">
-        <h1 className="text-center">관리자 시스템</h1>
+        <h1 className="text-center text-[#638BB3]">Log In</h1>
         <Formik
           initialValues={{
             username: '',
@@ -93,7 +93,13 @@ function Login() {
                 )
               }}
             />
-            <Button className="mt-4" type="submit" disabled={loading ? true : false}>
+            <Button
+              color="success"
+              variant="contained"
+              className="mt-4"
+              type="submit"
+              disabled={loading ? true : false}
+            >
               확인
             </Button>
           </Form>

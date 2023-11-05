@@ -49,10 +49,6 @@ import { useDevice } from '@/hooks/user-interface'
 import { getUserInterface, setUserInterface } from '@/utils/localstorage'
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: '#999',
-    color: theme.palette.common.white
-  },
   [`&.${tableCellClasses.root}`]: {
     padding: 0,
     height: '56px',
@@ -73,7 +69,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:nth-of-type(odd)': {
-    backgroundColor: theme.palette.action.hover
+    // backgroundColor: '#e0e0e0'
   },
   // hide last border
   '&:last-child td, &:last-child th': {
@@ -285,12 +281,14 @@ const UserList = forwardRef(() => {
       <div className="mt-7 w-auto">
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
-            <TableHead>
+            <TableHead className="bg-slate-300">
               <StyledTableRow className="text-center">
                 <StyledTableCell className="pl-3" width={30}>
                   No.
                 </StyledTableCell>
-                <StyledTableCell className="min-w-[170px]">ID</StyledTableCell>
+                <StyledTableCell width="auto" className="min-w-[170px]">
+                  ID
+                </StyledTableCell>
                 <StyledTableCell width={170}>E-MAIL</StyledTableCell>
                 <StyledTableCell width={170}>PHONE</StyledTableCell>
                 <StyledTableCell width={170}>ROLE</StyledTableCell>
@@ -308,7 +306,9 @@ const UserList = forwardRef(() => {
                   <Fragment key={row.id}>
                     <Formik initialValues={initialValues[index]} onSubmit={submitUserEdit}>
                       {(formik) => (
-                        <TableRow className={`${editingRow.includes(getIndexBasedOnPage(index)) && 'bg-stone-400/10'}`}>
+                        <StyledTableRow
+                          className={`${editingRow.includes(getIndexBasedOnPage(index)) && 'bg-stone-400/10'}`}
+                        >
                           <StyledTableCell className="pl-3">{getIndexBasedOnPage(index)}</StyledTableCell>
                           <StyledTableCell component="th" scope="row">
                             {row.username}
@@ -348,6 +348,7 @@ const UserList = forwardRef(() => {
 
                           <StyledTableCell align="center">
                             <Switch
+                              color="success"
                               defaultChecked={row.mg_state}
                               inputProps={{ 'aria-label': 'Switch demo' }}
                               onChange={() => changeUserState(row)}
@@ -357,24 +358,27 @@ const UserList = forwardRef(() => {
                             {editingRow?.includes(getIndexBasedOnPage(index)) ? (
                               <>
                                 <IconButton onClick={() => handleSaveClick(index, formik)}>
-                                  <SaveIcon color="secondary" />
+                                  <SaveIcon color="info" />
                                 </IconButton>
                                 <IconButton onClick={() => handleEditCancel(getIndexBasedOnPage(index), formik)}>
-                                  <ClearIcon />
+                                  <ClearIcon color="success" />
                                 </IconButton>
                               </>
                             ) : (
-                              <Button onClick={() => setEditingRow((c) => [...c, getIndexBasedOnPage(index)])}>
-                                <BorderColorIcon />
-                              </Button>
+                              <IconButton
+                                color="success"
+                                onClick={() => setEditingRow((c) => [...c, getIndexBasedOnPage(index)])}
+                              >
+                                <BorderColorIcon color="success" />
+                              </IconButton>
                             )}
                           </StyledTableCell>
                           <StyledTableCell align="center">
-                            <Button onClick={(e) => deleteHandler(e, row.id)}>
-                              <DeleteForeverIcon />
-                            </Button>
+                            <IconButton onClick={(e) => deleteHandler(e, row.id)}>
+                              <DeleteForeverIcon color="success" />
+                            </IconButton>
                           </StyledTableCell>
-                        </TableRow>
+                        </StyledTableRow>
                       )}
                     </Formik>
                   </Fragment>

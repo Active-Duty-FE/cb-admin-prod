@@ -1,4 +1,4 @@
-import { Button, IconButton } from '@mui/material'
+import { Button, IconButton, useTheme } from '@mui/material'
 import { Form, useNavigate } from 'react-router-dom'
 import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates'
 import { useAppDispatch, useAppSelector } from '@/hooks/store'
@@ -22,9 +22,9 @@ const Header: FC<IProps> = () => {
     localStorage.setItem('tips', '')
     dispatch(updateTipReset(true))
   }
-
+  const theme = useTheme()
   return (
-    <div className="fixed top-0 left-0 z-10 w-full h-16 box-border bg-[#363d40] flex px-2 md:px-10 items-center justify-between">
+    <div className="fixed top-0 left-0 z-10 w-full h-16 box-border bg-primary flex px-2 md:px-10 items-center justify-between">
       {device?.type === 'mobile' && (
         <IconButton onClick={() => dispatch(updateSidebarToggled(true))}>
           <MenuIcon color="primary" />
@@ -35,9 +35,9 @@ const Header: FC<IProps> = () => {
       <Form>
         <div className="">
           <IconButton onClick={handleTipClick} className="mr-4">
-            <TipsAndUpdatesIcon sx={{ color: '#fff', '&:hover': { color: '#409fff' } }} />
+            <TipsAndUpdatesIcon color="success" />
           </IconButton>
-          <Button type="submit" className="" variant="contained" onClick={handleLogout}>
+          <Button type="submit" className="" color="success" variant="contained" onClick={handleLogout}>
             로그아웃
           </Button>
         </div>
