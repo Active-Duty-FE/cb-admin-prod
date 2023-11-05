@@ -25,30 +25,29 @@ const SearchUser: FC<IProps> = memo(({ searchFn, setKeyword, setIsKeywordFocused
   }
 
   return (
-    <div>
-      <Formik
-        initialValues={{ keyword: '' }}
-        validationSchema={keywordSchema}
-        onSubmit={submitFormHandler}
-        validateOnBlur={false}
-        validateOnChange={false}
-      >
-        {(formik) => (
-          <Form className="flex">
-            <AInput
-              ref={searchInputRef}
-              // blurwithempty={blurWithEmpty.toString()}
-              name="keyword"
-              type="text"
-              placeholder="ID를 입력하세요."
-            />
-            <Button type="submit" ref={searchButtonRef} className="ml-4 h-14" variant="contained">
-              검색
-            </Button>
-          </Form>
-        )}
-      </Formik>
-    </div>
+    <Formik
+      initialValues={{ keyword: '' }}
+      validationSchema={keywordSchema}
+      onSubmit={submitFormHandler}
+      validateOnBlur={false}
+      validateOnChange={false}
+    >
+      {(formik) => (
+        <Form className="flex w-full sm:w-auto">
+          <AInput
+            className="flex-1 sm:flex-auto "
+            ref={searchInputRef}
+            // blurwithempty={blurWithEmpty.toString()}
+            name="keyword"
+            type="text"
+            placeholder="ID를 입력하세요."
+          />
+          <Button type="submit" ref={searchButtonRef} className="ml-4 h-14" variant="contained">
+            검색
+          </Button>
+        </Form>
+      )}
+    </Formik>
   )
 })
 

@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
 import userInterfaceSlice from './modules/user-interface'
 import metaSlice from './modules/meta'
+import userSlice from './modules/user'
 const store = configureStore({
   reducer: {
     [userInterfaceSlice.name]: userInterfaceSlice.reducer,
-    [metaSlice.name]: metaSlice.reducer
+    [metaSlice.name]: metaSlice.reducer,
+    [userSlice.name]: userSlice.reducer
   },
   // middleware: (getDefaultMiddleware) =>
   //   getDefaultMiddleware({

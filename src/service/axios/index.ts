@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios'
 import { AppAxiosRequestConfig, AppCreateAxiosDefaults, AppInternalAxiosRequestConfig } from './config'
-import { decrypt } from '@/utils/cryto'
+import { decrypt, tokenCrypto } from '@/utils/cryto'
 import store from '@/store'
 import { updateMetaSlice } from '@/store/modules/meta'
 
@@ -12,8 +12,8 @@ export class AppRequest {
       (config: AppInternalAxiosRequestConfig) => {
         let token = window.localStorage.getItem('token')
         if (!!token) {
-          token = decrypt(token, 'my-token').token
-          config.headers.setAuthorization(token)
+          const data = tokenCrypto.decrypt(token, 'my-token')
+          config.headers.setAuthorization(data.token)
         }
         return config
       }

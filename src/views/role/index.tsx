@@ -13,7 +13,7 @@ const Role: FC<IProps> = memo(() => {
   const [expanded, setExpanded] = useState(false)
   return (
     <>
-      <div className="flex">
+      <div className="flex justify-between sm:justify-start">
         <AddRole />
         <Button className="ml-4" variant="outlined" onClick={() => setExpanded(!expanded)}>
           모두 접기

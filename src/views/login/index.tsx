@@ -3,30 +3,23 @@ import { loginSchema } from '@/schema'
 import { appRequest } from '@/service'
 import { LoginData, SetSubmitting } from '@/types'
 import { Response, User } from '@/types/ResponseType'
-import { encrypt } from '@/utils/cryto'
-import { verifyToken } from '@/utils/token'
+import { tokenCrypto } from '@/utils/cryto'
 import { AccountCircle, Lock, Visibility, VisibilityOff } from '@mui/icons-material'
 import { Button, IconButton, InputAdornment, Paper } from '@mui/material'
 import { Formik, Form } from 'formik'
 import { useState } from 'react'
 import { useQueryClient } from 'react-query'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
-  const isAuth = verifyToken()
   const navigate = useNavigate()
   const handleClickShowPassword = () => setShowPassword((show) => !show)
-
   const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
   }
   const queryClient = useQueryClient()
-
-  if (isAuth) {
-    return <Navigate to={'/'} />
-  }
 
   const submitHandler = async (values: LoginData, { setSubmitting }: { setSubmitting: SetSubmitting }) => {
     setLoading(true)
@@ -38,8 +31,7 @@ function Login() {
         staleTime: 0
       })
       if (meta.status === 200) {
-        const token = data.token
-        window.localStorage.setItem('token', encrypt({ token, time: new Date().getTime() }, 'my-token'))
+        window.localStorage.setItem('token', tokenCrypto.encrypt({ ...data, time: new Date().getTime() }, 'my-token'))
         navigate('/')
       }
     } catch (error) {
