@@ -180,7 +180,6 @@ const UserList = forwardRef(() => {
     onSuccess: (res) => {
       if (res.data.meta.status === 400) {
       }
-      console.log(res, 'res')
     },
     onSettled: (res) => {
       // queryClient.invalidateQueries(userListKeys.list({ pagenum, pagesize, query: keyword }))
@@ -207,7 +206,6 @@ const UserList = forwardRef(() => {
         const newOld = old.data.data.users.map((item: any) => {
           if (item.id === row.id) {
             item.mg_state = !item.mg_state
-            console.log('item=', item, 'row=', row)
           }
           return item
         })
