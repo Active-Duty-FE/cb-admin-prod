@@ -27,7 +27,7 @@ const Header: FC<IProps> = () => {
     <div className="fixed top-0 left-0 z-10 w-full h-16 box-border bg-primary flex px-2 md:px-10 items-center justify-between">
       {device?.type === 'mobile' && (
         <IconButton onClick={() => dispatch(updateSidebarToggled(true))}>
-          <MenuIcon color="primary" />
+          <MenuIcon color="success" />
         </IconButton>
       )}
       <h1 className="text-white m-0 text-lg md:text-2xl">관리자 시스템</h1>
