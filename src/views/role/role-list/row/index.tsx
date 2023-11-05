@@ -1,4 +1,4 @@
-import { Box, Button, Collapse, Dialog, DialogActions, DialogTitle, TableCell, TableRow } from '@mui/material'
+import { Box, Button, Collapse, Dialog, DialogActions, DialogTitle, Portal, TableCell, TableRow } from '@mui/material'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
 import BuildCircleIcon from '@mui/icons-material/BuildCircle'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
@@ -131,11 +131,16 @@ const Row: FC<IProps> = memo((props) => {
           </Collapse>
         </TableCell>
       </TableRow>
-      <FormModal open={popupOpen} setOpen={setPopupOpen} type="update" defaultValue={row} />
-      <SelectPermissionModal
-        open={selectedPermissionsModalOpen}
-        setSelectedPermissionsModalOpen={setSelectedPermissionsModalOpen}
-      />
+      <Portal>
+        <FormModal open={popupOpen} setOpen={setPopupOpen} type="update" defaultValue={row} />
+      </Portal>
+      <Portal>
+        <SelectPermissionModal
+          open={selectedPermissionsModalOpen}
+          setSelectedPermissionsModalOpen={setSelectedPermissionsModalOpen}
+        />
+      </Portal>
+
       <Dialog open={confirmOpen} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
         <DialogTitle className="flex items-center p-2 md:p-4">
           <ErrorOutlineIcon fontSize={device?.type === 'mobile' ? 'small' : 'large'} color="warning" />

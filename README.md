@@ -8,12 +8,12 @@
 
 #### 사용한 스택
 
-| 분류     | 스택                                                                     |
-| -------- | ------------------------------------------------------------------------ |
-| 기본     | react + typescirpt + react-router-dom + tailwindcss + materialUI         |
-| 네트워크 | reacy-query                                                              |
-| 상태관리 | reduxjs/toolkit                                                          |
-| 기타     | formik(form control and submit) + yup(schema) + crypto-js(로그인 암호화) |
+| 분류             | 스택                                                                   |
+| ---------------- | ---------------------------------------------------------------------- |
+| 기본             | react + typescirpt + react-router-dom + tailwindcss + materialUI       |
+| 네트워크 및 캐싱 | axios + reacy-query                                                    |
+| 상태관리         | reduxjs/toolkit                                                        |
+| 기타             | formik(form control and submit) + yup(schema) + crypto-js(토큰 암호화) |
 
 #### 기술 사용 이유
 
@@ -26,17 +26,21 @@
 #### TODOLIST
 
 - [ ] 전역
-  - [ ] alert 메세지 component로 대체
+  - [x] alert 메세지 component로 대체
   - [ ] Reselect로 redux 코드 최적화
 - [x] 레이아웃
 - [x] 로그인
-- [ ] 홈
-  - [ ] welcome이미지 넣기
+- [x] 홈
+  - [x] welcome이미지 넣기
 - [x] 관리자 리스트
+  - [ ] window reload할 때 user-interfase를 기억하기
+    - [x] 페이징
+    - [ ] 사이드바 collapsed
+    - [ ] keyword
 - [ ] 권한관리 롤 리스트
   - [x] 롤 삭제 확인 절차 추가
   - [ ] 롤 권한부여
-  - [ ] div cannot be nested in a tbody 에러 잡기
+  - [x] \<div\> cannot appear as a child of \<tbody\> 에러 잡기
 - [ ] 권한관리 리스트
 - [ ] 상품관리 리스트
 - [ ] 상품관리 파라미터

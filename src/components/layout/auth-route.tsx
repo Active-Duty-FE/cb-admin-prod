@@ -9,8 +9,6 @@ function AuthRoute({ children }: { children: ReactNode }) {
   const dispatch = useAppDispatch()
   if (token && token !== '') {
     const data = tokenCrypto.decrypt(token, 'my-token')
-    console.log(data, 'decrypt data')
-
     const now = new Date().getTime()
     const duration = now - data.time
     if (duration > 24 * 60 * 60 * 1000) {
