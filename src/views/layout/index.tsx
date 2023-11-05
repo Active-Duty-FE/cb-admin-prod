@@ -32,7 +32,7 @@ function Layout() {
         <Siderbar setPaddingLeft={setPaddingLeft} pathname={pathname} />
       </div>
       <div className={`pt-16 duration-500 pl-${paddingLeft}`}>
-        <div className="p-2 sm:p-7">
+        <div className="p-2 md:p-7">
           <Outlet />
         </div>
       </div>

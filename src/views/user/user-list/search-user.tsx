@@ -33,9 +33,9 @@ const SearchUser: FC<IProps> = memo(({ searchFn, setKeyword, setIsKeywordFocused
       validateOnChange={false}
     >
       {(formik) => (
-        <Form className="flex w-full sm:w-auto">
+        <Form className="flex w-full md:w-auto">
           <AInput
-            className="flex-1 sm:flex-auto "
+            className="flex-1 md:flex-auto "
             ref={searchInputRef}
             // blurwithempty={blurWithEmpty.toString()}
             name="keyword"

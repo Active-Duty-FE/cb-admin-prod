@@ -1,4 +1,4 @@
-import { Box, Button, Collapse, Dialog, DialogActions, TableCell, TableRow } from '@mui/material'
+import { Box, Button, Collapse, Dialog, DialogActions, DialogTitle, TableCell, TableRow } from '@mui/material'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
 import BuildCircleIcon from '@mui/icons-material/BuildCircle'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
@@ -7,6 +7,7 @@ import type { FC, MouseEvent, ReactNode } from 'react'
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline'
 import { RoleParent, RoleChild, Response } from '@/types/ResponseType'
 import CollapsedRow from './collapsed-row'
 import { ArrowRightOutlined } from '@mui/icons-material'
@@ -17,6 +18,7 @@ import { roleListKeys } from '@/keys'
 import SelectPermissionModal from './select-permission-modal'
 import { useAppDispatch, useAppSelector } from '@/hooks/store'
 import { updateMetaSlice } from '@/store/modules/meta'
+import { useDevice } from '@/hooks/user-interface'
 interface IProps {
   children?: ReactNode
   row: RoleParent
@@ -32,6 +34,7 @@ const Row: FC<IProps> = memo((props) => {
   const [deleteId, setDeleteId] = useState(NaN)
   const [selectedPermissionsModalOpen, setSelectedPermissionsModalOpen] = useState(false)
   const appDispatch = useAppDispatch()
+  const device = useDevice()
   const { metaSwitch } = useAppSelector((state) => {
     return {
       metaSwitch: state.metaSlice.switch
@@ -134,6 +137,10 @@ const Row: FC<IProps> = memo((props) => {
         setSelectedPermissionsModalOpen={setSelectedPermissionsModalOpen}
       />
       <Dialog open={confirmOpen} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
+        <DialogTitle className="flex items-center p-2 md:p-4">
+          <ErrorOutlineIcon fontSize={device?.type === 'mobile' ? 'small' : 'large'} color="warning" />
+          <h3 className="ml-2 text-base md:text-2xl text-stone-600">삭제하시겠습니까?</h3>
+        </DialogTitle>
         <DialogActions>
           <Button onClick={() => confirmDeleteRole(deleteId)} autoFocus>
             확인

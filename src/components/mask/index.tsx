@@ -10,7 +10,7 @@ interface IProps {
 const Mask: FC<IProps> = memo(({ children, open, setOpen }) => {
   return (
     <div
-      className={`fixed left-0 top-0 w-screen h-screen z-30 flex justify-center items-center bg-stone-900/50 overflow-scroll md:overflow-auto ${
+      className={`fixed left-0 top-0 w-screen h-full z-30 flex justify-center items-center bg-stone-900/50 overflow-scroll md:overflow-auto ${
         !open && 'hidden'
       }`}
     >

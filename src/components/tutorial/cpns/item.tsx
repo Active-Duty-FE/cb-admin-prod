@@ -43,25 +43,25 @@ const Item: FC<IProps> = memo(({ setOpen }) => {
   }
   return (
     <div className="w-full">
-      <div className="md:relative static w-full md:w-[500px] m-auto px-[10%] md:px-0">
+      <div className="md:relative w-full md:w-[500px] m-auto px-[10%] md:px-0 box-border">
         <h2 className="text-sky-600">Tips!</h2>
         <Slider ref={sliderRef} {...settings} className="md:w-500 w-9/12" afterChange={(i) => handleSliderChange(i)}>
           {data.map((item) => (
             <DescItem item={item} />
           ))}
         </Slider>
-        <div className="absolute md:-right-32 md:top-0 right-[5%] top-[5%]">
+        <div className="fixed sm:absolute md:-right-32 md:top-0 right-[3%] top-[3%]">
           {sliderIndex !== 0 && (
-            <StyledButton variant="outlined" onClick={() => sliderRef.current?.slickPrev()}>
+            <StyledButton variant="contained" onClick={() => sliderRef.current?.slickPrev()}>
               이전
             </StyledButton>
           )}
           {sliderIndex === data.length - 1 ? (
-            <StyledButton variant="outlined" onClick={handleClose}>
+            <StyledButton variant="contained" onClick={handleClose}>
               닫기
             </StyledButton>
           ) : (
-            <StyledButton variant="outlined" onClick={() => sliderRef.current?.slickNext()}>
+            <StyledButton variant="contained" onClick={() => sliderRef.current?.slickNext()}>
               다음
             </StyledButton>
           )}

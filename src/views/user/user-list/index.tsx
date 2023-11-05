@@ -19,8 +19,18 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import { useRoleList, useUserList } from '@/service/fetchdata'
-import { Button, IconButton, MenuItem, Switch, TablePagination } from '@mui/material'
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogTitle,
+  IconButton,
+  MenuItem,
+  Switch,
+  TablePagination
+} from '@mui/material'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import { Formik, FormikProps } from 'formik'
 import { useMutation } from 'react-query'
@@ -30,12 +40,13 @@ import { queryClient } from '@/router'
 import AInput from '@/components/common/form/a-input'
 import { UserEdit } from '@/types'
 import AddUser from './add-user'
-import ConfirmDialog from '@/components/common/confirm-dailog'
 import ASelect from '@/components/common/form/a-select'
 import { userListKeys } from '@/keys'
 import SaveIcon from '@mui/icons-material/Save'
 import ClearIcon from '@mui/icons-material/Clear'
 import SearchUser from './search-user'
+import { useDevice } from '@/hooks/user-interface'
+import { getUserInterface, setUserInterface } from '@/utils/localstorage'
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -46,7 +57,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     padding: 0,
     height: '56px',
     input: {
-      ['&:focus']: {
+      '&:focus': {
         outline: '1px solid #000'
       }
     },
@@ -74,8 +85,8 @@ const UserList = forwardRef(() => {
   const renderCount = useRef(0)
   renderCount.current = renderCount.current + 1
 
-  const [pagesize, setPagesize] = useState(5)
-  const [pagenum, setPagenum] = useState(1)
+  const [pagesize, setPagesize] = useState(getUserInterface('pagesize') ?? 5)
+  const [pagenum, setPagenum] = useState(getUserInterface('pagenum') ?? 1)
 
   const [isKeywordFocused, setIsKeywordFocused] = useState(false)
   const [keyword, setKeyword] = useState('')
@@ -87,9 +98,9 @@ const UserList = forwardRef(() => {
     },
     isKeywordFocused
   )
+  const device = useDevice()
   const [displayData, setDisplayData] = useState(data)
   const defferedData = useDeferredValue(displayData)
-  const [confirmPosition, setConfirmPosition] = useState({ left: 0, top: 0 })
   const roles = useRoleList()
   const [confirmOpen, setConfirmOpen] = useState(false)
   const [editingRow, setEditingRow] = useState<number[]>([])
@@ -101,6 +112,11 @@ const UserList = forwardRef(() => {
     })
   )
   const isStale = data !== defferedData
+  useEffect(() => {
+    return () => {
+      setUserInterface('pagenum', '1')
+    }
+  }, [])
   useEffect(() => {
     if (data) {
       setDisplayData(data)
@@ -211,6 +227,7 @@ const UserList = forwardRef(() => {
       .then((res) => {
         if (res.data.meta.status === 200) {
           queryClient.invalidateQueries({ queryKey: userListKeys.list({ pagenum, pagesize, query: keyword }) })
+          setConfirmOpen(false)
         }
       })
       .catch((error) => {
@@ -220,20 +237,20 @@ const UserList = forwardRef(() => {
   const deleteHandler = (e: MouseEvent<HTMLButtonElement>, rowId: number) => {
     setDeleteId(rowId)
     setConfirmOpen(true)
-    setConfirmPosition({
-      left: e.currentTarget.offsetLeft,
-      top: e.currentTarget.offsetTop
-    })
   }
   const handleChangePage = (event: unknown, newPage: number) => {
     setPagenum(newPage + 1)
+    setUserInterface('pagenum', newPage + 1 + '')
   }
   const handleChangeRowsPerPage = (e: ChangeEvent<HTMLInputElement>) => {
     setPagesize(Number(e.target.value))
+    setUserInterface('pagesize', e.target.value)
+    setUserInterface('pagenum', '1')
     setPagenum(1)
   }
   const searchFn = (keyword: string) => {
     setKeyword(keyword)
+    setUserInterface('pagenum', '1')
     setPagenum(1)
   }
 
@@ -254,8 +271,8 @@ const UserList = forwardRef(() => {
         <div className="flex">
           <SearchUser
             isKeywordFocused={isKeywordFocused}
-            setIsKeywordFocused={useCallback(setIsKeywordFocused, [])}
-            setKeyword={useCallback(setKeyword, [])}
+            setIsKeywordFocused={useCallback(setIsKeywordFocused, [setIsKeywordFocused])}
+            setKeyword={useCallback(setKeyword, [setKeyword])}
             searchFn={searchFn}
           />
         </div>
@@ -263,7 +280,7 @@ const UserList = forwardRef(() => {
           <Button className="md:ml-4 h-14" variant="contained" color="success" onClick={fetchAllUser}>
             모두 보기
           </Button>
-          <AddUser totalCount={totalCount} setTotalCount={useCallback(setTotalCount, [])} />
+          <AddUser totalCount={totalCount} setTotalCount={useCallback(setTotalCount, [setTotalCount])} />
         </div>
       </div>
 
@@ -377,17 +394,18 @@ const UserList = forwardRef(() => {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </div>
-
-      <ConfirmDialog
-        title="DELETE?"
-        open={confirmOpen}
-        onClose={() => setConfirmOpen(false)}
-        onConfirm={() => deleteConfirm(deleteId)}
-        left={confirmPosition.left}
-        top={confirmPosition.top}
-        translatex={-36}
-        translatey={-4}
-      />
+      <Dialog open={confirmOpen} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
+        <DialogTitle className="flex items-center p-2 md:p-4">
+          <ErrorOutlineIcon fontSize={device?.type === 'mobile' ? 'small' : 'large'} color="warning" />
+          <h3 className="ml-2 text-base md:text-2xl text-stone-600">삭제하시겠습니까?</h3>
+        </DialogTitle>
+        <DialogActions>
+          <Button onClick={() => deleteConfirm(deleteId)} autoFocus>
+            확인
+          </Button>
+          <Button onClick={() => setConfirmOpen(false)}>취소</Button>
+        </DialogActions>
+      </Dialog>
     </>
   )
 })

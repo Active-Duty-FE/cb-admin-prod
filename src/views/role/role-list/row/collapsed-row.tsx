@@ -1,10 +1,12 @@
+import React, { memo, useState } from 'react'
+import type { FC, ReactNode } from 'react'
 import { permissionKeys, roleListKeys } from '@/keys'
 import { appRequest } from '@/service'
 import { RoleChild } from '@/types/ResponseType'
-import { Button, Chip, Dialog, DialogActions } from '@mui/material'
-import React, { memo, useState } from 'react'
-import type { FC, ReactNode } from 'react'
+import { Button, Chip, Dialog, DialogActions, DialogTitle } from '@mui/material'
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline'
 import { useQueryClient } from 'react-query'
+import { useDevice } from '@/hooks/user-interface'
 
 interface IProps {
   children?: ReactNode
@@ -16,6 +18,7 @@ const CollapsedRow: FC<IProps> = memo(({ roleChild, roleId }) => {
   const queryClient = useQueryClient()
   const [confirmOpen, setConfirmOpen] = useState(false)
   const [deleteId, setDeleteId] = useState(NaN)
+  const device = useDevice()
   const confirmDeletePermission = (roleId: number, rightsId: number) => {
     if (roleId && rightsId) {
       queryClient
@@ -51,6 +54,10 @@ const CollapsedRow: FC<IProps> = memo(({ roleChild, roleId }) => {
         onDelete={() => deletePermissionHandler(roleChild.id)}
       />
       <Dialog open={confirmOpen} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
+        <DialogTitle className="flex items-center p-2 md:p-4">
+          <ErrorOutlineIcon fontSize={device?.type === 'mobile' ? 'small' : 'large'} color="warning" />
+          <h3 className="ml-2 text-base md:text-2xl text-stone-600">삭제하시겠습니까?</h3>
+        </DialogTitle>
         <DialogActions>
           <Button onClick={() => confirmDeletePermission(roleId, deleteId)} autoFocus>
             확인

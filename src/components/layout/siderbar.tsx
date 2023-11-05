@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks/store'
 import { useDevice } from '@/hooks/user-interface'
 import { updateSidebarToggled } from '@/store/modules/user-interface'
 import { MenuItemType } from '@/types'
+import { getUserInterface, setUserInterface } from '@/utils/localstorage'
 import { FC, Fragment, useEffect, useState } from 'react'
 import { Menu, MenuItem, Sidebar, SubMenu } from 'react-pro-sidebar'
 import { NavLink } from 'react-router-dom'
@@ -15,7 +16,7 @@ interface IProps {
 const Siderbar: FC<IProps> = (props) => {
   const { setPaddingLeft, pathname } = props
   const device = useDevice()
-  const [collapsed, setCollapsed] = useState(false)
+  const [collapsed, setCollapsed] = useState(getUserInterface('sidebarCollapsed') === 1 ? true : false)
   const dispatch = useAppDispatch()
   const { sidebarToggled } = useAppSelector((state) => ({ sidebarToggled: state.userInterface.sidebarToggled }))
   useEffect(() => {
@@ -34,12 +35,17 @@ const Siderbar: FC<IProps> = (props) => {
   useEffect(() => {
     if (device?.type === 'mobile') {
       setCollapsed(true)
+      setUserInterface('sidebarCollapsed', '1')
     }
   }, [device?.type])
   const getDefaultOpen = (item: MenuItemType) => {
     if (item.children) {
       return item.children.map((item) => item.to).includes(pathname)
     }
+  }
+  const handleCollapseButton = () => {
+    setCollapsed && setCollapsed(!collapsed)
+    setUserInterface('sidebarCollapsed', collapsed ? '0' : '1')
   }
   return (
     <div style={{ display: 'flex', height: 'calc(100vh - 64px)' }}>
@@ -51,10 +57,7 @@ const Siderbar: FC<IProps> = (props) => {
         transitionDuration={500}
         onBackdropClick={() => dispatch(updateSidebarToggled(false))}
       >
-        <div
-          className="h-4 bg-[#4A5064] text-center text-[#313743] py-2 cursor-pointer"
-          onClick={() => setCollapsed && setCollapsed(!collapsed)}
-        >
+        <div className="h-4 bg-[#4A5064] text-center text-[#313743] py-2 cursor-pointer" onClick={handleCollapseButton}>
           | | |
         </div>
         <Menu
