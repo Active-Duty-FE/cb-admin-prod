@@ -133,7 +133,7 @@ const Row: FC<IProps> = memo((props) => {
             <BorderColorIcon color="success" />
           </IconButton>
           <IconButton onClick={(e) => distributeRoleHandler(e, row.id)}>
-            <BuildCircleIcon color="success" />
+            <BuildCircleIcon color="disabled" />
           </IconButton>
           <IconButton onClick={(e) => deleteRoleHandler(e, row.id)}>
             <DeleteForeverIcon />

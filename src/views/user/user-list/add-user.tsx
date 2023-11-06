@@ -57,16 +57,35 @@ const AddUser: FC<IProps> = memo(({ totalCount, setTotalCount }) => {
             {(formkik) => (
               <Form>
                 <div className="flex flex-col">
-                  <AInput className="" label="ID" name="username" placeholder="ID를 입력하세요."></AInput>
+                  <AInput
+                    className=""
+                    label="ID"
+                    autoComplete="off"
+                    name="username"
+                    placeholder="ID를 입력하세요."
+                  ></AInput>
                   <AInput
                     className="mt-2"
                     label="PW"
                     name="password"
+                    autoComplete="off"
                     placeholder="비밀번호를 입력하세요."
                     type="password"
                   ></AInput>
-                  <AInput className="mt-2" label="E-MAIL" name="email" placeholder="이메일을 입력하세요."></AInput>
-                  <AInput className="mt-2" label="PHONE" name="mobile" placeholder="핸드폰 번호를 입력하세요."></AInput>
+                  <AInput
+                    className="mt-2"
+                    label="E-MAIL"
+                    autoComplete="off"
+                    name="email"
+                    placeholder="이메일을 입력하세요."
+                  ></AInput>
+                  <AInput
+                    className="mt-2"
+                    label="PHONE"
+                    autoComplete="off"
+                    name="mobile"
+                    placeholder="핸드폰 번호를 입력하세요."
+                  ></AInput>
                   <div className="flex items-center mt-3 ">
                     <Button color="success" className="flex-1" variant="contained" type="submit">
                       새로 만들기
