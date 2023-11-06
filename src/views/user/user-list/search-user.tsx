@@ -1,4 +1,4 @@
-import React, { memo, useRef } from 'react'
+import React, { memo } from 'react'
 
 import type { FC, ReactNode } from 'react'
 import { Button } from '@mui/material'
@@ -15,7 +15,7 @@ interface IProps {
   isKeywordFocused: boolean
 }
 
-const SearchUser: FC<IProps> = memo(({ searchFn }) => {
+const SearchUser: FC<IProps> = memo(({ searchFn, setKeyword, setIsKeywordFocused }) => {
   const submitFormHandler = (value: { keyword: string }) => {
     searchFn(value.keyword)
   }

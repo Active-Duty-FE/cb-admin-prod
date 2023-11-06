@@ -6,17 +6,13 @@ import React, {
   useCallback,
   useDeferredValue,
   useEffect,
-  useRef,
   useState
 } from 'react'
 
-import { styled } from '@mui/material/styles'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
-import TableCell, { tableCellClasses } from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import { useRoleList, useUserList } from '@/service/fetchdata'
 import {
@@ -50,8 +46,8 @@ import { getUserInterface, setUserInterface } from '@/utils/localstorage'
 import { StyledTableCell, StyledTableRow } from '@/components/styled'
 
 const UserList = forwardRef(() => {
-  const [pagesize, setPagesize] = useState(getUserInterface('pagesize') ?? 5)
-  const [pagenum, setPagenum] = useState(getUserInterface('pagenum') ?? 1)
+  const [pagesize, setPagesize] = useState(Number(getUserInterface('pagesize')) ?? 5)
+  const [pagenum, setPagenum] = useState(Number(getUserInterface('pagenum')) ?? 1)
   const [isKeywordFocused, setIsKeywordFocused] = useState(false)
 
   const [confirmOpen, setConfirmOpen] = useState(false)
@@ -365,7 +361,7 @@ const UserList = forwardRef(() => {
       <Dialog open={confirmOpen} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
         <DialogTitle className="flex items-center p-2 md:p-4">
           <ErrorOutlineIcon fontSize={device?.type === 'mobile' ? 'small' : 'large'} color="warning" />
-          <h3 className="ml-2 text-base md:text-2xl text-stone-600">삭제하시겠습니까?</h3>
+          <div className="ml-2 text-base md:text-2xl text-stone-600">삭제하시겠습니까?</div>
         </DialogTitle>
         <DialogActions>
           <Button onClick={() => deleteConfirm(deleteId)} autoFocus>

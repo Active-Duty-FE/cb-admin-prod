@@ -30,6 +30,8 @@ import SelectPermissionModal from './select-permission-modal'
 import { useAppDispatch, useAppSelector } from '@/hooks/store'
 import { updateMetaSlice } from '@/store/modules/meta'
 import { useDevice } from '@/hooks/user-interface'
+import { createSelector } from '@reduxjs/toolkit'
+import { RootState } from '@/store'
 interface IProps {
   children?: ReactNode
   row: RoleParent
@@ -44,11 +46,11 @@ const Row: FC<IProps> = memo((props) => {
   const [confirmOpen, setConfirmOpen] = useState(false)
   const [deleteId, setDeleteId] = useState(NaN)
   const [selectedPermissionsModalOpen, setSelectedPermissionsModalOpen] = useState(false)
-  const { metaSwitch } = useAppSelector((state) => {
-    return {
-      metaSwitch: state.metaSlice.switch
-    }
-  })
+  const getMetaSwitch = createSelector(
+    (state: RootState) => state.metaSlice,
+    (meta) => meta.switch
+  )
+  const switched = useAppSelector(getMetaSwitch)
   const roleDescRef = useRef<HTMLTableCellElement>()
   const appDispatch = useAppDispatch()
   const device = useDevice()
@@ -104,13 +106,14 @@ const Row: FC<IProps> = memo((props) => {
       queryKey: [roleListKeys.all, 'delete', roleId],
       queryFn: () =>
         appRequest.delete<Response>(`/roles/${roleId}`).then((res) => {
-          appDispatch(updateMetaSlice({ ...res.data.meta, switch: !metaSwitch }))
+          appDispatch(updateMetaSlice({ ...res.data.meta, switch: !switched }))
           queryClient.invalidateQueries(roleListKeys.lists())
         })
     })
   }
   const distributeRoleHandler = (e: MouseEvent, roleId: number) => {
     e.stopPropagation()
+    setSelectedPermissionsModalOpen(true)
   }
 
   return (
@@ -159,7 +162,7 @@ const Row: FC<IProps> = memo((props) => {
       <Dialog open={confirmOpen} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
         <DialogTitle className="flex items-center p-2 md:p-4">
           <ErrorOutlineIcon fontSize={device?.type === 'mobile' ? 'small' : 'large'} color="warning" />
-          <h3 className="ml-2 text-base md:text-2xl text-stone-600">삭제하시겠습니까?</h3>
+          <div className="ml-2 text-base md:text-2xl text-stone-600">삭제하시겠습니까?</div>
         </DialogTitle>
         <DialogActions>
           <Button onClick={() => confirmDeleteRole(deleteId)} autoFocus>

@@ -27,7 +27,7 @@
 
 - [ ] 전역
   - [x] alert 메세지 component로 대체
-  - [ ] Reselect로 redux 코드 최적화
+  - [x] Reselect로 redux 코드 최적화
 - [x] 레이아웃
 - [x] 로그인
 - [x] 홈

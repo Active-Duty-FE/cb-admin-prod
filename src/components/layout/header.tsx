@@ -1,10 +1,10 @@
-import { Button, IconButton, useTheme } from '@mui/material'
+import { Button, IconButton } from '@mui/material'
 import { Form, useNavigate } from 'react-router-dom'
 import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates'
-import { useAppDispatch, useAppSelector } from '@/hooks/store'
+import { useAppDispatch } from '@/hooks/store'
 import { updateSidebarToggled, updateTipReset } from '@/store/modules/user-interface'
 import MenuIcon from '@mui/icons-material/Menu'
-import { Dispatch, FC, ReactNode } from 'react'
+import { FC, ReactNode } from 'react'
 import { useDevice } from '@/hooks/user-interface'
 import { setUserInterface } from '@/utils/localstorage'
 

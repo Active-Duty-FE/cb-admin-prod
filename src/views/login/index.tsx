@@ -58,7 +58,8 @@ function Login() {
               label="ID"
               name="username"
               type="text"
-              placeholder="ID를 입력하세요."
+              autoComplete="username"
+              placeholder="아이디를 입력하세요."
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -73,6 +74,7 @@ function Login() {
               name="password"
               type={showPassword ? 'text' : 'password'}
               placeholder="비밀번호를 입력하세요."
+              autoComplete="current-password"
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">

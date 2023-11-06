@@ -4,8 +4,14 @@ import permission from '@/assets/permission.svg'
 import product from '@/assets/product.svg'
 import user from '@/assets/user.svg'
 import { useAppSelector } from '@/hooks/store'
+import { createSelector } from '@reduxjs/toolkit'
+import { RootState } from '@/store'
 function Main() {
-  const { username } = useAppSelector((state) => ({ username: state.userSlice.username }))
+  const getUsername = createSelector(
+    (state: RootState) => state.userSlice.username,
+    (username) => username
+  )
+  const username = useAppSelector(getUsername)
 
   return (
     <div className="">

@@ -2,7 +2,6 @@ import React, { memo, useEffect, useRef, useState } from 'react'
 import type { FC, ReactNode } from 'react'
 import DescItem from './desc-item'
 import Slider, { Settings } from 'react-slick'
-import styled from 'styled-components'
 import { Button } from '@mui/material'
 import { useAppDispatch } from '@/hooks/store'
 import { updateTipReset } from '@/store/modules/user-interface'
@@ -21,14 +20,6 @@ const sliderSetting: Settings = {
   swipe: false
 }
 
-const StyledButton = styled(Button)`
-  border-color: #d3d3d3;
-  color: #d3d3d3;
-  &:hover {
-    border-color: #fff;
-    color: #fff;
-  }
-`
 const Item: FC<IProps> = memo(({ setOpen }) => {
   const [sliderIndex, setSliderIndex] = useState(0)
   const sliderRef = useRef<Slider>(null)
@@ -53,8 +44,8 @@ const Item: FC<IProps> = memo(({ setOpen }) => {
           className="md:w-500 w-9/12"
           afterChange={(i) => handleSliderChange(i)}
         >
-          {data.map((item) => (
-            <DescItem item={item} />
+          {data.map((item, index) => (
+            <DescItem key={index} item={item} />
           ))}
         </Slider>
         <div className="fixed sm:absolute md:-right-32 md:top-0 right-[3%] top-[3%]">

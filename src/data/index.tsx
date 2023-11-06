@@ -6,6 +6,8 @@ import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings'
 import LocalMallIcon from '@mui/icons-material/LocalMall'
 import ListAltIcon from '@mui/icons-material/ListAlt'
 import QueryStatsIcon from '@mui/icons-material/QueryStats'
+import ListIcon from '@mui/icons-material/List'
+import CategoryIcon from '@mui/icons-material/Category'
 
 export const menuItem: MenuItemType[] = [
   {
@@ -16,7 +18,7 @@ export const menuItem: MenuItemType[] = [
   {
     label: '관리자',
     icon: <PeopleIcon />,
-    children: [{ label: '리스트', icon: <WidgetsIcon />, to: '/user-list' }]
+    children: [{ label: '리스트', icon: <ListIcon />, to: '/user-list' }]
   },
   {
     label: '권한관리',
@@ -24,12 +26,12 @@ export const menuItem: MenuItemType[] = [
     children: [
       {
         label: '롤 리스트',
-        icon: <WidgetsIcon />,
+        icon: <ListIcon />,
         to: '/role-list'
       },
       {
         label: '권한 리스트',
-        icon: <WidgetsIcon />,
+        icon: <ListIcon />,
         to: '/permission'
       }
     ]
@@ -40,7 +42,7 @@ export const menuItem: MenuItemType[] = [
     children: [
       {
         label: '리스트',
-        icon: <WidgetsIcon />,
+        icon: <ListIcon />,
         to: '/product'
       },
       {
@@ -50,7 +52,7 @@ export const menuItem: MenuItemType[] = [
       },
       {
         label: '분류',
-        icon: <WidgetsIcon />,
+        icon: <CategoryIcon />,
         to: '/category'
       }
     ]
@@ -61,7 +63,7 @@ export const menuItem: MenuItemType[] = [
     children: [
       {
         label: '리스트',
-        icon: <WidgetsIcon />,
+        icon: <ListIcon />,
         to: '/order'
       }
     ]
@@ -72,7 +74,7 @@ export const menuItem: MenuItemType[] = [
     children: [
       {
         label: '리스트',
-        icon: <WidgetsIcon />,
+        icon: <ListIcon />,
         to: '/data-view'
       }
     ]

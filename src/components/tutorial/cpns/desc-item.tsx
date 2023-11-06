@@ -10,7 +10,7 @@ const DescItem: FC<IProps> = memo(({ item }) => {
   return (
     <>
       {item.map((item, index) => (
-        <div className={`border border-white border-solid p-5 text-white ${index !== 0 && 'mt-5'}`}>
+        <div key={item.content} className={`border border-white border-solid p-5 text-white ${index !== 0 && 'mt-5'}`}>
           <h2 className="">{item.title}</h2>
           <div>{item.content}</div>
         </div>

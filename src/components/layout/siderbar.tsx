@@ -1,10 +1,12 @@
 import { menuItem } from '@/data'
 import { useAppDispatch, useAppSelector } from '@/hooks/store'
 import { useDevice } from '@/hooks/user-interface'
+import { RootState } from '@/store'
 import { updateSidebarToggled } from '@/store/modules/user-interface'
 import { MenuItemType } from '@/types'
 import { getUserInterface, setUserInterface } from '@/utils/localstorage'
 import { useTheme } from '@mui/material'
+import { createSelector } from '@reduxjs/toolkit'
 import { FC, Fragment, useEffect, useState } from 'react'
 import { Menu, MenuItem, Sidebar, SubMenu } from 'react-pro-sidebar'
 import { NavLink } from 'react-router-dom'
@@ -17,7 +19,11 @@ interface IProps {
 const Siderbar: FC<IProps> = (props) => {
   const { setPaddingLeft, pathname } = props
   const [collapsed, setCollapsed] = useState(getUserInterface('sidebarCollapsed') === 1 ? true : false)
-  const { sidebarToggled } = useAppSelector((state) => ({ sidebarToggled: state.userInterface.sidebarToggled }))
+  const getSidebarToggled = createSelector(
+    (state: RootState) => state.userInterface.sidebarToggled,
+    (sidebarToggled) => sidebarToggled
+  )
+  const sidebarToggled = useAppSelector(getSidebarToggled)
   const dispatch = useAppDispatch()
   const device = useDevice()
   const theme = useTheme()

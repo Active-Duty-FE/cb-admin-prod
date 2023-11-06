@@ -58,7 +58,7 @@ const CollapsedRow: FC<IProps> = memo(({ roleChild, roleId }) => {
       <Dialog open={confirmOpen} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
         <DialogTitle className="flex items-center p-2 md:p-4">
           <ErrorOutlineIcon fontSize={device?.type === 'mobile' ? 'small' : 'large'} color="warning" />
-          <h3 className="ml-2 text-base md:text-2xl text-stone-600">삭제하시겠습니까?</h3>
+          <div className="ml-2 text-base md:text-2xl text-stone-600">삭제하시겠습니까?</div>
         </DialogTitle>
         <DialogActions>
           <Button onClick={() => confirmDeletePermission(roleId, deleteId)} autoFocus>
