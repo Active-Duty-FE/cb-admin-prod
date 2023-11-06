@@ -1,4 +1,5 @@
 import { loginSchema, userEditSchema } from '@/schema'
+import { HTMLProps, ReactElement } from 'react'
 import { InferType } from 'yup'
 
 export type MenuItemType = {
@@ -42,4 +43,16 @@ export type RoleForm = {
 
 export type SearchForm = {
   keyword: string
+}
+
+export type TreeDataChild<T = undefined> = {
+  id: number
+  children?: TreeDataChild<T>[]
+} & T
+
+export type GenerateTreeDataProps = {
+  element: ReactElement
+  elementProps?: HTMLProps<HTMLElement>
+  arrow?: boolean
+  flatLastChild?: boolean
 }

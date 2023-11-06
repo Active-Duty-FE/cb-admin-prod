@@ -12,10 +12,11 @@ import Category from '@/views/catagory'
 import Order from '@/views/order'
 import DataView from '@/views/data-view'
 import Permission from '@/views/permission'
+import ErrorEl from '@/components/layout/error-el'
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: Infinity,
+      staleTime: 24 * 60 * 1000,
       useErrorBoundary: true
     }
   }
@@ -73,7 +74,7 @@ const router = createBrowserRouter([
   },
   {
     path: '*',
-    element: <div>error</div>
+    element: <ErrorEl />
   }
 ])
 export default router

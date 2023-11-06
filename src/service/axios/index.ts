@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios'
 import { AppAxiosRequestConfig, AppCreateAxiosDefaults, AppInternalAxiosRequestConfig } from './config'
-import { decrypt, tokenCrypto } from '@/utils/cryto'
+import { tokenCrypto } from '@/utils/crypto'
 import store from '@/store'
 import { updateMetaSlice } from '@/store/modules/meta'
 
@@ -79,5 +79,4 @@ export class AppRequest {
       ...config
     })
   }
-  // Here you can add more requests eg. delete, put, etc.
 }

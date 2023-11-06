@@ -16,10 +16,12 @@ interface IProps {
 
 const Siderbar: FC<IProps> = (props) => {
   const { setPaddingLeft, pathname } = props
-  const device = useDevice()
   const [collapsed, setCollapsed] = useState(getUserInterface('sidebarCollapsed') === 1 ? true : false)
-  const dispatch = useAppDispatch()
   const { sidebarToggled } = useAppSelector((state) => ({ sidebarToggled: state.userInterface.sidebarToggled }))
+  const dispatch = useAppDispatch()
+  const device = useDevice()
+  const theme = useTheme()
+
   useEffect(() => {
     if (setPaddingLeft) {
       if (device?.type === 'pc') {
@@ -39,6 +41,7 @@ const Siderbar: FC<IProps> = (props) => {
       setUserInterface('sidebarCollapsed', '1')
     }
   }, [device?.type])
+
   const getDefaultOpen = (item: MenuItemType) => {
     if (item.children) {
       return item.children.map((item) => item.to).includes(pathname)
@@ -48,7 +51,7 @@ const Siderbar: FC<IProps> = (props) => {
     setCollapsed && setCollapsed(!collapsed)
     setUserInterface('sidebarCollapsed', collapsed ? '0' : '1')
   }
-  const theme = useTheme()
+
   return (
     <div style={{ display: 'flex', height: 'calc(100vh - 64px)' }}>
       <Sidebar

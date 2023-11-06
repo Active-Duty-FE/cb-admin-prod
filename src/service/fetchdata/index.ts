@@ -18,17 +18,12 @@ export const useUserList = (queryObj: UsersListQuery, isKeywordFocused: boolean)
     enabled: !isKeywordFocused
   })
   return { data, isFetching, refetch, isLoading }
-  // if (data?.data.meta.status === 200) {
-  //   return data.data.data.users
-  // }
 }
 
 export const getSearchUser = (searchId: string) => {
   return queryClient.fetchQuery({
     queryKey: userListKeys.search(searchId),
     queryFn: () => appRequest.get<Response<SearchUser>>(`/users/${searchId}`)
-    // select: (data) => data.data,
-    // enabled: searchId !== ''
   })
 }
 /**
@@ -47,8 +42,6 @@ export const getSearchRole = (rid: string) => {
   return queryClient.fetchQuery({
     queryKey: roleListKeys.search(rid),
     queryFn: () => appRequest.get<Response<SearchRole>>(`/roles/${rid}`)
-    // select: (data) => data.data.data,
-    // enabled: rid !== ''
   })
 }
 

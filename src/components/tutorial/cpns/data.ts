@@ -1,4 +1,8 @@
-export const data = [
+type TutorialType = {
+  title: string
+  content: string
+}
+export const data: Array<TutorialType[]> = [
   [
     {
       title: '관리자',

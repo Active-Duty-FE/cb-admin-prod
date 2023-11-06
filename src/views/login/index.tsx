@@ -3,7 +3,7 @@ import { loginSchema } from '@/schema'
 import { appRequest } from '@/service'
 import { LoginData, SetSubmitting } from '@/types'
 import { Response, User } from '@/types/ResponseType'
-import { tokenCrypto } from '@/utils/cryto'
+import { tokenCrypto } from '@/utils/crypto'
 import { AccountCircle, Lock, Visibility, VisibilityOff } from '@mui/icons-material'
 import { Button, IconButton, InputAdornment, Paper } from '@mui/material'
 import { Formik, Form } from 'formik'
@@ -15,12 +15,12 @@ function Login() {
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
+  const queryClient = useQueryClient()
+
   const handleClickShowPassword = () => setShowPassword((show) => !show)
   const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
   }
-  const queryClient = useQueryClient()
-
   const submitHandler = async (values: LoginData, { setSubmitting }: { setSubmitting: SetSubmitting }) => {
     setLoading(true)
     try {

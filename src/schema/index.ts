@@ -4,7 +4,6 @@ export const loginSchema = object({
   username: string().required('아이디는 필수 입력 사항입니다.'),
   password: string().required('비밀번호는 필수 입력 사항입니다.')
 })
-
 export const userEditSchema = object({
   email: string().email().required('이메일은 필수 입력 사항입니다.'),
   mobile: number().min(11).max(11).required('핸드폰 번호는 필수 입력 사항입니다.')
@@ -30,7 +29,6 @@ export const createUserSchema = object({
     .required('핸드폰 번호는 필수 입력 사항입니다.')
     .matches(/^[0-9]+$/, '숫자로만 입력해야 합니다')
 })
-
 export const RoleFormSchema = object({
   roleName: string().required(),
   roleDesc: string()

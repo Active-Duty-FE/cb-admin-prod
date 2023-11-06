@@ -7,18 +7,20 @@ import { Button } from '@mui/material'
 import { useAppDispatch } from '@/hooks/store'
 import { updateTipReset } from '@/store/modules/user-interface'
 import { data } from './data'
+import { setUserInterface } from '@/utils/localstorage'
 
 interface IProps {
   children?: ReactNode
   setOpen: (open: boolean) => void
 }
 
-const settings: Settings = {
+const sliderSetting: Settings = {
   arrows: false,
   speed: 0,
   infinite: false,
   swipe: false
 }
+
 const StyledButton = styled(Button)`
   border-color: #d3d3d3;
   color: #d3d3d3;
@@ -36,7 +38,7 @@ const Item: FC<IProps> = memo(({ setOpen }) => {
     setSliderIndex(index)
   }
   const handleClose = () => {
-    localStorage.setItem('tips', 'watched')
+    setUserInterface('tips', '1')
     setOpen(false)
     appDispatch(updateTipReset(false))
     document.body.style.overflow = 'auto'
@@ -44,26 +46,31 @@ const Item: FC<IProps> = memo(({ setOpen }) => {
   return (
     <div className="w-full">
       <div className="md:relative w-full md:w-[500px] m-auto px-[10%] md:px-0 box-border">
-        <h2 className="text-sky-600">Tips!</h2>
-        <Slider ref={sliderRef} {...settings} className="md:w-500 w-9/12" afterChange={(i) => handleSliderChange(i)}>
+        <h2 className="text-white">Tips!</h2>
+        <Slider
+          ref={sliderRef}
+          {...sliderSetting}
+          className="md:w-500 w-9/12"
+          afterChange={(i) => handleSliderChange(i)}
+        >
           {data.map((item) => (
             <DescItem item={item} />
           ))}
         </Slider>
         <div className="fixed sm:absolute md:-right-32 md:top-0 right-[3%] top-[3%]">
           {sliderIndex !== 0 && (
-            <StyledButton variant="contained" onClick={() => sliderRef.current?.slickPrev()}>
+            <Button color="success" variant="contained" onClick={() => sliderRef.current?.slickPrev()}>
               이전
-            </StyledButton>
+            </Button>
           )}
           {sliderIndex === data.length - 1 ? (
-            <StyledButton variant="contained" onClick={handleClose}>
+            <Button color="success" variant="contained" onClick={handleClose}>
               닫기
-            </StyledButton>
+            </Button>
           ) : (
-            <StyledButton variant="contained" onClick={() => sliderRef.current?.slickNext()}>
+            <Button color="success" variant="contained" onClick={() => sliderRef.current?.slickNext()}>
               다음
-            </StyledButton>
+            </Button>
           )}
         </div>
       </div>

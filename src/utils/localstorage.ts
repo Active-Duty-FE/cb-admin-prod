@@ -1,15 +1,20 @@
 const getUserInterface = (key: string) => {
   const userInterface =
-    window.localStorage.getItem('user-interface') ?? '{"pagenum": "1", "pagesize":"5", "sidebarCollapsed":"0"}'
+    window.localStorage.getItem('user-interface') ??
+    '{"pagenum": "1", "pagesize":"5", "sidebarCollapsed":"0", "tips": "0"}'
   if (userInterface) {
-    return Number(JSON.parse(userInterface)[key])
+    return JSON.parse(userInterface)[key]
   }
   return undefined
 }
 
 const setUserInterface = (key: string, value: string) => {
-  const userInterface =
-    window.localStorage.getItem('user-interface') ?? '{"pagenum": "1", "pagesize":"5", "sidebarCollapsed":"0"}'
+  let userInterface = '{"pagenum": "1", "pagesize":"5", "sidebarCollapsed":"0", "tips": "0"}'
+  const localItem = window.localStorage.getItem('user-interface')
+  if (localItem !== '' && localItem !== null) {
+    userInterface = localItem
+  }
+
   const userInterfaceObj = JSON.parse(userInterface)
   userInterfaceObj[key] = value
   window.localStorage.setItem('user-interface', JSON.stringify(userInterfaceObj))

@@ -1,10 +1,7 @@
+import { GenerateTreeDataProps, TreeDataChild } from '@/types'
 import { ArrowRightOutlined } from '@mui/icons-material'
 import { HTMLProps, ReactElement, ReactNode, cloneElement } from 'react'
 
-type TreeDataChild<T = undefined> = {
-  id: number
-  children?: TreeDataChild<T>[]
-} & T
 const checkHasChildren = (treeChild: TreeDataChild<unknown>[]) => {
   for (const item of treeChild) {
     if (item.children) {
@@ -23,12 +20,7 @@ const generateBorderClass = (treeChild: TreeDataChild<unknown>[], index: number)
   }
   return borderClass
 }
-type GenerateTreeDataProps = {
-  element: ReactElement
-  elementProps?: HTMLProps<HTMLElement>
-  arrow?: boolean
-  flatLastChild?: boolean
-}
+
 export const generateTreeData = (treeData: TreeDataChild<unknown>[], props: GenerateTreeDataProps) => {
   const { flatLastChild, element, elementProps, arrow } = props
   return (

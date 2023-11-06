@@ -24,6 +24,7 @@ const Tutorial: FC<IProps> = memo(({ tipReset }) => {
       document.body.style.overflow = 'auto'
     }
   }, [open])
+
   return (
     <Mask open={open} setOpen={setOpen}>
       <Item setOpen={setOpen} />

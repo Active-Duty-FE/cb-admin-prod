@@ -1,8 +1,6 @@
+import { Device } from '@/types/user-interface'
 import { useEffect, useState } from 'react'
-type Device = {
-  type: 'mobile' | 'pc'
-  innerWidth: number
-}
+
 export const useDevice = () => {
   const [device, setDevice] = useState<Device>()
   useEffect(() => {
