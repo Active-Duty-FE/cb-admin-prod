@@ -4,9 +4,9 @@ import permission from '@/assets/permission.svg'
 import product from '@/assets/product.svg'
 import user from '@/assets/user.svg'
 import { useAppSelector } from '@/hooks/store'
-import { Link } from 'react-router-dom'
 function Main() {
   const { username } = useAppSelector((state) => ({ username: state.userSlice.username }))
+
   return (
     <div className="">
       <h2 className="text-center text-primary">{username}님, 환영합니다.</h2>

@@ -15,11 +15,7 @@ interface IProps {
   isKeywordFocused: boolean
 }
 
-const SearchUser: FC<IProps> = memo(({ searchFn, setKeyword, setIsKeywordFocused }) => {
-  // const [blurWithEmpty, setBlurWithEmpty] = useState(true)
-  const searchButtonRef = useRef<HTMLButtonElement>(null)
-  const searchInputRef = useRef<HTMLInputElement>(null)
-
+const SearchUser: FC<IProps> = memo(({ searchFn }) => {
   const submitFormHandler = (value: { keyword: string }) => {
     searchFn(value.keyword)
   }
@@ -34,15 +30,8 @@ const SearchUser: FC<IProps> = memo(({ searchFn, setKeyword, setIsKeywordFocused
     >
       {(formik) => (
         <Form className="flex w-full md:w-auto">
-          <AInput
-            className="flex-1 md:flex-auto "
-            ref={searchInputRef}
-            // blurwithempty={blurWithEmpty.toString()}
-            name="keyword"
-            type="text"
-            placeholder="ID를 입력하세요."
-          />
-          <Button type="submit" ref={searchButtonRef} color="success" className="ml-4 h-14" variant="contained">
+          <AInput className="flex-1 md:flex-auto " name="keyword" type="text" placeholder="ID를 입력하세요." />
+          <Button type="submit" color="success" className="ml-4 h-14" variant="contained">
             검색
           </Button>
         </Form>

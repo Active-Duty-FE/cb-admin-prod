@@ -15,10 +15,11 @@ interface IProps {
 }
 
 const CollapsedRow: FC<IProps> = memo(({ roleChild, roleId }) => {
-  const queryClient = useQueryClient()
   const [confirmOpen, setConfirmOpen] = useState(false)
   const [deleteId, setDeleteId] = useState(NaN)
   const device = useDevice()
+  const queryClient = useQueryClient()
+
   const confirmDeletePermission = (roleId: number, rightsId: number) => {
     if (roleId && rightsId) {
       queryClient
@@ -44,6 +45,7 @@ const CollapsedRow: FC<IProps> = memo(({ roleChild, roleId }) => {
     setDeleteId(deleteId)
     setConfirmOpen(true)
   }
+
   return (
     <>
       <Chip

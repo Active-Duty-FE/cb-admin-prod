@@ -47,57 +47,13 @@ import ClearIcon from '@mui/icons-material/Clear'
 import SearchUser from './search-user'
 import { useDevice } from '@/hooks/user-interface'
 import { getUserInterface, setUserInterface } from '@/utils/localstorage'
-
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.root}`]: {
-    padding: 0,
-    height: '56px',
-    input: {
-      '&:focus': {
-        outline: '1px solid #000'
-      }
-    },
-    fieldset: {
-      border: 0
-    }
-  },
-  [`&.${tableCellClasses.root}:focus`]: { backgroundColor: '#ff0' },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14
-  }
-}))
-
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
-    // backgroundColor: '#e0e0e0'
-  },
-  // hide last border
-  '&:last-child td, &:last-child th': {
-    border: 0
-  }
-}))
+import { StyledTableCell, StyledTableRow } from '@/components/styled'
 
 const UserList = forwardRef(() => {
-  const renderCount = useRef(0)
-  renderCount.current = renderCount.current + 1
-
   const [pagesize, setPagesize] = useState(getUserInterface('pagesize') ?? 5)
   const [pagenum, setPagenum] = useState(getUserInterface('pagenum') ?? 1)
-
   const [isKeywordFocused, setIsKeywordFocused] = useState(false)
-  const [keyword, setKeyword] = useState('')
-  const { data, isFetching } = useUserList(
-    {
-      pagenum,
-      pagesize,
-      query: keyword
-    },
-    isKeywordFocused
-  )
-  const device = useDevice()
-  const [displayData, setDisplayData] = useState(data)
-  const defferedData = useDeferredValue(displayData)
-  const roles = useRoleList()
+
   const [confirmOpen, setConfirmOpen] = useState(false)
   const [editingRow, setEditingRow] = useState<number[]>([])
   const [deleteId, setDeleteId] = useState(0)
@@ -107,7 +63,21 @@ const UserList = forwardRef(() => {
       return { id: NaN, email: 'a', mobile: 'ddd', role_name: '권한 없음' }
     })
   )
+  const [keyword, setKeyword] = useState('')
+  const { data, isFetching } = useUserList(
+    {
+      pagenum,
+      pagesize,
+      query: keyword
+    },
+    isKeywordFocused
+  )
+  const [displayData, setDisplayData] = useState(data)
+  const device = useDevice()
+  const defferedData = useDeferredValue(displayData)
+  const roles = useRoleList()
   const isStale = data !== defferedData
+
   useEffect(() => {
     return () => {
       setUserInterface('pagenum', '1')
@@ -155,7 +125,6 @@ const UserList = forwardRef(() => {
   })
 
   const mutateRole = useMutation({
-    // mutationKey: [...userListKeys.all, 'user', 'mutateRole', editItemValue?.role_name],
     mutationFn: (value: UserEdit) => {
       const roleId = getRoleIdbasedOnRolename(value.role_name)
       return appRequest.put<Response<UserListItem>>(`/users/${value?.id}/role`, { data: { rid: roleId } })
@@ -173,12 +142,9 @@ const UserList = forwardRef(() => {
       })
       return value
     },
-    onSuccess: (res) => {
-      if (res.data.meta.status === 400) {
-      }
-    },
+    onSuccess: (res) => {},
     onSettled: (res) => {
-      // queryClient.invalidateQueries(userListKeys.list({ pagenum, pagesize, query: keyword }))
+      queryClient.invalidateQueries(userListKeys.list({ pagenum, pagesize, query: keyword }))
     }
   })
   const getRoleIdbasedOnRolename = (role_name: string) => {

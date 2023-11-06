@@ -24,6 +24,7 @@ interface IProps {
 
 const FormModal: FC<IProps> = memo(({ open, setOpen, type, defaultValue }) => {
   const queryClient = useQueryClient()
+
   const handleClose = () => {
     setOpen(false)
   }
@@ -48,6 +49,7 @@ const FormModal: FC<IProps> = memo(({ open, setOpen, type, defaultValue }) => {
       staleTime: 0
     })
   }
+
   return (
     <div>
       <Backdrop open={open} />

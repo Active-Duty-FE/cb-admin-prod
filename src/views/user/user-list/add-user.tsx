@@ -30,7 +30,6 @@ const AddUser: FC<IProps> = memo(({ totalCount, setTotalCount }) => {
       .then((res) => {
         setOpen(false)
         setTotalCount(totalCount + 1)
-        // queryClient.prefetchQuery({ queryKey: userListKeys.list({ pagenum: pagenum - 1, pagesize, query: keyword }) })
       })
   }
   return (

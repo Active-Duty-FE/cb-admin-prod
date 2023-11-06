@@ -44,14 +44,19 @@ const Row: FC<IProps> = memo((props) => {
   const [confirmOpen, setConfirmOpen] = useState(false)
   const [deleteId, setDeleteId] = useState(NaN)
   const [selectedPermissionsModalOpen, setSelectedPermissionsModalOpen] = useState(false)
-  const appDispatch = useAppDispatch()
-  const device = useDevice()
   const { metaSwitch } = useAppSelector((state) => {
     return {
       metaSwitch: state.metaSlice.switch
     }
   })
   const roleDescRef = useRef<HTMLTableCellElement>()
+  const appDispatch = useAppDispatch()
+  const device = useDevice()
+
+  useEffect(() => {
+    setOpen(false)
+  }, [expanded])
+
   const checkHasChildren = (roleChild: RoleChild[]) => {
     for (const item of roleChild) {
       if (item.children) {
@@ -84,9 +89,7 @@ const Row: FC<IProps> = memo((props) => {
       </div>
     )
   }
-  useEffect(() => {
-    setOpen(false)
-  }, [expanded])
+
   const editRoleHandler = (e: MouseEvent) => {
     e.stopPropagation()
     setPopupOpen(true)
@@ -109,6 +112,7 @@ const Row: FC<IProps> = memo((props) => {
   const distributeRoleHandler = (e: MouseEvent, roleId: number) => {
     e.stopPropagation()
   }
+
   return (
     <React.Fragment>
       <TableRow
