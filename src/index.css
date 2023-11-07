@@ -59,34 +59,43 @@ input[type='number']::-webkit-outer-spin-button {
 .top-500 {
   top: 500px;
 }
-:where(.css-dev-only-do-not-override-2i2tap).ant-tree .ant-tree-checkbox-indeterminate .ant-tree-checkbox-inner:after {
+:where([class*='css-dev-only-do-not-override']).ant-tree
+  .ant-tree-checkbox-indeterminate
+  .ant-tree-checkbox-inner:after {
   background-color: #638bb3;
 }
-:where(.css-dev-only-do-not-override-2i2tap).ant-tree .ant-tree-checkbox-checked .ant-tree-checkbox-inner {
+:where([class*='css-dev-only-do-not-override']).ant-tree .ant-tree-checkbox-checked .ant-tree-checkbox-inner {
   background-color: #638bb3;
   border-color: #638bb3;
 }
-:where(.css-dev-only-do-not-override-2i2tap).ant-tree
+:where([class*='css-dev-only-do-not-override']).ant-tree
   .ant-tree-checkbox:hover
-  :where(.css-dev-only-do-not-override-2i2tap).ant-tree
+  :where([class*='css-dev-only-do-not-override']).ant-tree
   .ant-tree-checkbox-wrapper-checked:not(.ant-tree-checkbox-wrapper-disabled):hover
   .ant-tree-checkbox-inner,
-:where(.css-dev-only-do-not-override-2i2tap).ant-tree
+:where([class*='css-dev-only-do-not-override']).ant-tree
   .ant-tree-checkbox-checked:not(.ant-tree-checkbox-disabled):hover
   .ant-tree-checkbox-inner {
   background-color: #1b2833;
 }
 
-:where(.css-dev-only-do-not-override-2i2tap).ant-tree
+:where([class*='css-dev-only-do-not-override']).ant-tree
   .ant-tree-checkbox:hover
-  :where(.css-dev-only-do-not-override-2i2tap).ant-tree
+  :where([class*='css-dev-only-do-not-override']).ant-tree
   .ant-tree-checkbox-wrapper:not(.ant-tree-checkbox-wrapper-disabled):hover
   .ant-tree-checkbox-inner,
-:where(.css-dev-only-do-not-override-2i2tap).ant-tree
+:where([class*='css-dev-only-do-not-override']).ant-tree
   .ant-tree-checkbox:not(.ant-tree-checkbox-disabled):hover
   .ant-tree-checkbox-inner {
   border-color: #1b2833;
 }
-:where(.css-dev-only-do-not-override-2i2tap).ant-tree .ant-tree-checkbox .ant-tree-checkbox-inner:after {
-  left: 25%;
+@media (max-width: 820px) {
+  :where([class*='css-dev-only-do-not-override']).ant-tree .ant-tree-checkbox .ant-tree-checkbox-inner:after {
+    left: 25%;
+  }
+  :where([class*='css-dev-only-do-not-override']).ant-tree
+    .ant-tree-checkbox-indeterminate
+    .ant-tree-checkbox-inner:after {
+    left: 50%;
+  }
 }
