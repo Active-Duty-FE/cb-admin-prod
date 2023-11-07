@@ -20,11 +20,14 @@ function App() {
     if (isFirstLoad.current) {
       isFirstLoad.current = false
       return
+    } else {
+      if (meta.msg !== '') {
+        enqueueSnackbar(meta.msg, {
+          variant: isSuccessType ? 'success' : 'warning',
+          autoHideDuration: isSuccessType ? 1000 : 5000
+        })
+      }
     }
-    enqueueSnackbar(meta.msg, {
-      variant: isSuccessType ? 'success' : 'warning',
-      autoHideDuration: isSuccessType ? 1000 : 5000
-    })
   }, [meta.switch, enqueueSnackbar, isSuccessType, meta.msg])
 
   return (

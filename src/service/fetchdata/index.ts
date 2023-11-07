@@ -1,8 +1,8 @@
 import { UsersListQuery } from '@/types/RequestType'
 import { useQuery } from 'react-query'
 import { appRequest } from '..'
-import { Response, RoleParent, SearchRole, SearchUser, UserListType } from '@/types/ResponseType'
-import { roleListKeys, userListKeys } from '@/keys'
+import { Permission, Response, RoleParent, SearchRole, SearchUser, UserListType } from '@/types/ResponseType'
+import { permissionKeys, roleListKeys, userListKeys } from '@/keys'
 import type { SearchType } from '@/types'
 import { queryClient } from '@/router'
 
@@ -51,4 +51,16 @@ export const getSearchData = async (type: SearchType, searchID: string) => {
   } else if (type === 'ROLE') {
     return await getSearchRole(searchID)
   }
+}
+
+/**
+ *
+ * PERMISSION FETCHING
+ */
+
+export const usePermission = () => {
+  return useQuery({
+    queryKey: [...permissionKeys.all, 'list'],
+    queryFn: () => appRequest.get<Response<Permission[]>>('/rights/tree')
+  })
 }

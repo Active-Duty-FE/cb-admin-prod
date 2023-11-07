@@ -17,6 +17,6 @@
     "jsx": "react-jsx",
     "typeRoots": ["./node_modules/@types", "./src/types"]
   },
-  "include": ["src", "environment.d.ts"],
+  "include": ["src", "environment.d.ts", "svg.d.ts"],
   "extends": "./tsconfig-extend.json"
 }

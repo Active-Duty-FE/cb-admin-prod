@@ -1,23 +1,53 @@
 import ModalBox from '@/components/common/modal/modal-box'
-import { Close } from '@mui/icons-material'
 import { IconButton, Modal } from '@mui/material'
 import React, { memo } from 'react'
-import type { Dispatch, FC, ReactNode, SetStateAction } from 'react'
-import HandymanIcon from '@mui/icons-material/Handyman'
+import type { FC, ReactNode } from 'react'
+import { RoleChild } from '@/types/ResponseType'
+import { usePermission } from '@/service/fetchdata'
+import TreeView from './tree-view'
+import { Close } from '@mui/icons-material'
+import Title from '@/components/common/title'
 
 interface IProps {
   children?: ReactNode
   open: boolean
-  setSelectedPermissionsModalOpen: Dispatch<SetStateAction<boolean>>
+  row: RoleChild[]
+  roleId: number
+  setSelectedPermissionsModalOpen: (selectedPermissionsModalOpen: boolean) => void
 }
 
-const SelectPermissionModal: FC<IProps> = memo(({ open, setSelectedPermissionsModalOpen }) => {
+const SelectPermissionModal: FC<IProps> = memo(({ open, row, setSelectedPermissionsModalOpen, roleId }) => {
+  const allPermissions = usePermission()
+  const permissions = getPermissions(row)
+
+  function getPermissions(row: RoleChild[]) {
+    let permissions: number[] = []
+    row.forEach((item) => {
+      permissions.push(item.id)
+      if (item.children) {
+        getPermissions(item.children)
+      }
+    })
+    return permissions
+  }
+  const handleModalClose = () => {
+    setSelectedPermissionsModalOpen(false)
+    document.body.style.overflow = 'auto'
+  }
   return (
     <div>
-      <Modal open={open}>
+      <Modal className="overflow-scroll" open={open} onClose={handleModalClose}>
         <ModalBox>
-          해당 공능은 개발중입니다. <HandymanIcon className="animate-bounce" />
-          <IconButton className="absolute right-2 top-2" onClick={() => setSelectedPermissionsModalOpen(false)}>
+          <Title>역할 분배</Title>
+          {allPermissions.data && allPermissions.data.data && (
+            <TreeView
+              data={allPermissions.data.data.data}
+              permissions={permissions}
+              roleId={roleId}
+              setSelectedPermissionsModalOpen={setSelectedPermissionsModalOpen}
+            />
+          )}
+          <IconButton className="absolute right-2 top-2" onClick={handleModalClose}>
             <Close />
           </IconButton>
         </ModalBox>

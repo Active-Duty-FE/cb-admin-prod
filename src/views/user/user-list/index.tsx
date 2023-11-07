@@ -337,7 +337,7 @@ const UserList = forwardRef(() => {
                           </StyledTableCell>
                           <StyledTableCell align="center">
                             <IconButton onClick={(e) => deleteHandler(e, row.id)}>
-                              <DeleteForeverIcon color="success" />
+                              <DeleteForeverIcon color="secondary" />
                             </IconButton>
                           </StyledTableCell>
                         </StyledTableRow>

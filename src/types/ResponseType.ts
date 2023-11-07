@@ -54,3 +54,11 @@ export type SearchRole = {
   roleDesc: string
 }
 export type MetaStatus = 200 | 201 | 204 | 400 | 401 | 403 | 404 | 422 | 500
+
+export type Permission = {
+  id: number
+  authName: string
+  pid: number
+  path: string
+  children?: Permission[]
+}

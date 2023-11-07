@@ -13,13 +13,11 @@ const ModalBox: FC<IProps> = memo(
     return (
       <Box
         sx={{
+          position: 'relative',
           zIndex: 2,
           width: () => (device?.type === 'mobile' ? '80%' : '400px'),
           padding: () => (device?.type === 'mobile' ? '12px' : '50px'),
-          position: 'fixed',
-          left: '50%',
-          top: '50%',
-          transform: 'translate(-50%, -50%)',
+          margin: '0 auto',
           backgroundColor: '#fff'
         }}
       >

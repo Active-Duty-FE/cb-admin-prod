@@ -114,6 +114,7 @@ const Row: FC<IProps> = memo((props) => {
   const distributeRoleHandler = (e: MouseEvent, roleId: number) => {
     e.stopPropagation()
     setSelectedPermissionsModalOpen(true)
+    document.body.style.overflow = 'hidden'
   }
 
   return (
@@ -133,10 +134,10 @@ const Row: FC<IProps> = memo((props) => {
             <BorderColorIcon color="success" />
           </IconButton>
           <IconButton onClick={(e) => distributeRoleHandler(e, row.id)}>
-            <BuildCircleIcon color="disabled" />
+            <BuildCircleIcon color="success" />
           </IconButton>
           <IconButton onClick={(e) => deleteRoleHandler(e, row.id)}>
-            <DeleteForeverIcon color="success" />
+            <DeleteForeverIcon color="secondary" />
           </IconButton>
         </TableCell>
       </TableRow>
@@ -154,6 +155,8 @@ const Row: FC<IProps> = memo((props) => {
       </Portal>
       <Portal>
         <SelectPermissionModal
+          roleId={row.id}
+          row={row.children}
           open={selectedPermissionsModalOpen}
           setSelectedPermissionsModalOpen={setSelectedPermissionsModalOpen}
         />
