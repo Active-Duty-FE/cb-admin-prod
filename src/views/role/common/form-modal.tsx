@@ -70,12 +70,12 @@ const FormModal: FC<IProps> = memo(({ open, setOpen, type, defaultValue }) => {
             {(formkik) => (
               <Form>
                 <div className="flex flex-col">
-                  <AInput className="" label="ROLE-NAME" name="roleName" placeholder="PL ENTER ROLE-NAME"></AInput>
+                  <AInput className="" label="ROLE-NAME" name="roleName" placeholder="롤(역할) 이름을 입력하세요."></AInput>
                   <AInput
                     className="mt-2"
                     label="ROLE-DESC"
                     name="roleDesc"
-                    placeholder="PL ENTER ROLE-DESCRIPTION"
+                    placeholder="롤(역할) 설명을 입력하세요."
                   ></AInput>
                   <div className="flex items-center mt-3 ">
                     <Button color="success" className="flex-1" variant="contained" onClick={() => formkik.submitForm()}>
